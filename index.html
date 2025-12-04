@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RoseTint Retro Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: '#ffe4f0',
+                100: '#ffcddf',
+                200: '#ffaac6',
+                300: '#ff7ca3',
+                400: '#ff4d84',
+                500: '#f01865', // Vivid Retro Pink
+                600: '#d10a50',
+                700: '#b0063f',
+                800: '#8f0836',
+                900: '#7a0931',
+              },
+              dark: {
+                900: '#121212', // Material Dark Background
+                800: '#1e1e1e', // Surface
+                700: '#2c2c2c',
+                600: '#3d3d3d',
+              }
+            },
+            fontFamily: {
+              serif: ['"Merriweather"', 'serif'],
+              sans: ['"Inter"', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+      html {
+        overflow-y: scroll; /* Forces scrollbar to exist to prevent layout shift */
+      }
+      body { 
+        font-family: 'Inter', sans-serif; 
+        background-color: #121212; 
+        color: #e5e5e5;
+      }
+      h1, h2, h3, h4, h5, h6 { font-family: 'Merriweather', serif; }
+      
+      /* Retro Dark Scrollbar */
+      ::-webkit-scrollbar { width: 10px; }
+      ::-webkit-scrollbar-track { background: #1e1e1e; }
+      ::-webkit-scrollbar-thumb { background: #3d3d3d; border: 1px solid #1e1e1e; }
+      ::-webkit-scrollbar-thumb:hover { background: #f01865; }
+
+      .glass-panel {
+        background: rgba(30, 30, 30, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Hide Scrollbar Utilities */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+      }
+
+      /* Custom Animations */
+      @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-50px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(50px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes slideInUp {
+        from { opacity: 0; transform: translateY(50px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .animate-slide-left { animation: slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      .animate-slide-right { animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      .animate-slide-up { animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react-markdown": "https://aistudiocdn.com/react-markdown@^10.1.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

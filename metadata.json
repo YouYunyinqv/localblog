@@ -1,0 +1,5 @@
+{
+  "name": "RoseTint Retro Blog",
+  "description": "A lightweight, pink-themed, retro Material Design 2 blog with local markdown storage and image management.",
+  "requestFramePermissions": []
+}
