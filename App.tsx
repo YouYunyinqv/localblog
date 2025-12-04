@@ -17,8 +17,6 @@ import {
 
 // --- Capacitor Imports ---
 import { Capacitor } from '@capacitor/core';
-import { CapacitorHttpServer } from '@capacitor-community/http-server';
-import { Network } from '@capacitor/network';
 
 function App() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -46,9 +44,6 @@ function App() {
   const [sortOption, setSortOption] = useState<SortOption>('createdAt');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
 
-  // --- Server State ---
-  const [serverUrl, setServerUrl] = useState<string | null>(null);
-
   // --- Initial Load ---
   useEffect(() => {
     const data = getAppData();
@@ -56,39 +51,6 @@ function App() {
     setCategories(data.categories);
     setImages(data.images);
     setSettings(data.settings);
-  }, []);
-
-  // --- Server & Network Logic ---
-  useEffect(() => {
-    const initServer = async () => {
-      if (!Capacitor.isNativePlatform()) return;
-
-      try {
-        // 1. Get IP Address
-        const status = await Network.getStatus();
-        if (status.connectionType === 'wifi') {
-          // Attempt to start server
-          // Port 8080, serving the 'public' folder (which Capacitor maps to our dist)
-          await CapacitorHttpServer.start({ port: 8080 });
-          
-          // Find the IPv4 address
-          // Note: This is a simplified check. Real IP detection can be complex, 
-          // but we will try to construct it or ask user to check settings.
-          // Actually, let's just show the message that it's running.
-          
-          // For displaying specific IP, we need a plugin that returns IP, 
-          // Network plugin mostly returns status. 
-          // For now, we will display a generic message or try to use location.hostname if possible in webview? No.
-          // Let's assume standard local IP class C.
-          
-          setServerUrl("Running on Port 8080"); 
-        }
-      } catch (e) {
-        console.error("Server Start Failed", e);
-      }
-    };
-    
-    initServer();
   }, []);
 
   // --- Persistence ---
@@ -227,13 +189,6 @@ function App() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#121212] text-gray-200">
       
-      {/* --- Server Info Overlay (Only visible on Native App) --- */}
-      {Capacitor.isNativePlatform() && (
-        <div className="fixed top-2 right-2 z-50 px-3 py-1 bg-black/60 backdrop-blur text-xs text-green-400 rounded border border-green-800 pointer-events-none">
-           LAN: http://[Phone-IP]:8080
-        </div>
-      )}
-
       {isLocked && <LockScreen backgroundImage={lockImage || bgImage} customText={settings.labels.lockScreenText} onUnlock={() => setIsLocked(false)} />}
       {showSettings && <SettingsModal labels={settings.labels} onSave={(l) => setSettings(prev => ({ ...prev, labels: l }))} onClose={() => setShowSettings(false)} />}
 
